@@ -5,5 +5,5 @@ HOST=$1
 ssh $HOST << EOF
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get install iperf
+sudo apt-get install -y iperf mtr
 EOF
