@@ -5,8 +5,8 @@ source net_lib.sh
 LABEL=$1
 HOST_A=$2
 HOST_B=$3
-DURATION=$4
-BANDWIDTHS=$5
-SIZES=$6
 
-run "$LABEL" "MTR" $HOST_B "sudo mtr --report-wide 10 --interval 0.01 --report-cycles=100 $HOST_A --order \"D R S B A W V M X I\" --csv --no-dns | head -n 1"
+cmd="sudo mtr --report-wide --interval 0.01 --report-cycles=3000 $HOST_A --order \"D R S B A W V M X I\" --no-dns"
+cmd="$cmd | tail -n 1 | sed 's/  1\.|-- [[:digit:]\.]\+\s\+//' | sed 's/ \+/,/g'"
+
+run "$LABEL" "MTR" $HOST_B "$cmd"
